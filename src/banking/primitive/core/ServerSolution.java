@@ -51,18 +51,18 @@ class ServerSolution implements AccountServer {
 		
 		if (accountMap.get(name) != null) return false;
 		
-		Account acc;
+		Account newAcct;
 		if ("Checking".equals(type)) {
-			acc = new Checking(name, balance);
+			newAcct = new Checking(name, balance);
 
 		} else if ("Savings".equals(type)) {
-			acc = new Savings(name, balance);
+			newAcct = new Savings(name, balance);
 
 		} else {
 			throw new IllegalArgumentException("Bad account type:" + type);
 		}
 		try {
-			accountMap.put(acc.getName(), acc);
+			accountMap.put(newAcct.getName(), newAcct);
 		} catch (Exception exc) {
 			return false;
 		}
@@ -78,11 +78,11 @@ class ServerSolution implements AccountServer {
 	}
 	
 	public boolean closeAccount(String name) {
-		Account acc = accountMap.get(name);
-		if (acc == null) {
+		Account acctClose = accountMap.get(name);
+		if (acctClose == null) {
 			return false;
 		}
-		acc.setState(State.CLOSED);
+		acctClose.setState(State.CLOSED);
 		return true;
 	}
 
